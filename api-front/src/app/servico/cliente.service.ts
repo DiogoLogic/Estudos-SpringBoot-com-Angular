@@ -17,4 +17,9 @@ private url:string = 'http://localhost:9090';
     return this.http.get<Cliente[]>(this.url);
   }
 
+  //Método para cadastrar clientes
+  cadastrar(obj:Cliente):Observable<Cliente>{
+    return this.http.post<Cliente>(this.url,obj);
+  }
+
 }
