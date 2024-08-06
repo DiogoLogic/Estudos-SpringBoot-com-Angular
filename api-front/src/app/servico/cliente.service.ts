@@ -22,4 +22,15 @@ private url:string = 'http://localhost:9090';
     return this.http.post<Cliente>(this.url,obj);
   }
 
+    //Método para editar clientes
+    editar(obj:Cliente):Observable<Cliente>{
+      return this.http.put<Cliente>(this.url,obj);
+    }
+
+   //Método para editar clientes
+   remover(codigo:number):Observable<void>{
+    return this.http.delete<void>(this.url + '/'+ codigo);
+  }
+
+
 }

@@ -32,6 +32,8 @@ constructor(private servico:ClienteService){
   .subscribe(retorno => this.clientes = retorno)
   }
 
+
+
   //Método de cadastro
   cadastrar():void{
     this.servico.cadastrar(this.cliente)
@@ -64,7 +66,79 @@ this.btnCadastro = false;
 }
 
 
-  //Visibilidade
+
+
+//Metodo para editar cliente
+editar():void{
+  this.servico.editar(this.cliente)
+  .subscribe(retorno =>{
+
+    //Obter posição do vetor onde está o cliente
+    let posicao = this.clientes.findIndex(obj => {
+      return obj.codigo == retorno.codigo;
+    });
+
+    //Alterar os dados do cliente no vetor
+    this.clientes[posicao] = retorno;
+
+    //limpar formulario
+    this.cliente = new Cliente();
+
+    //Visibilidade dos botões
+    this.btnCadastro = true;
+
+    //Visibilidade tabela
+    this.tabela = true;
+
+    //Mensagem
+    alert('Cliente alterado com sucesso!')
+  })
+}
+
+
+
+//Metodo para remover cliente
+remover():void{
+  this.servico.remover(this.cliente.codigo)
+  .subscribe(retorno =>{
+
+    //Obter posição do vetor onde está o cliente
+    let posicao = this.clientes.findIndex(obj => {
+      return obj.codigo == this.cliente.codigo;
+    });
+
+    //Remover cliente do vetor
+    this.clientes.splice(posicao, 1);
+
+    //limpar formulario
+    this.cliente = new Cliente();
+
+    //Visibilidade dos botões
+    this.btnCadastro = true;
+
+    //Visibilidade tabela
+    this.tabela = true;
+
+    //Mensagem
+    alert('Cliente removido com sucesso!')
+  })
+}
+
+
+  //Método para cancelar
+  cancelar():void{
+
+
+  //limpar formulario
+  this.cliente = new Cliente();
+
+  //Visibilidade dos botões
+  this.btnCadastro = true;
+
+  //Visibilidade tabela
+  this.tabela = true;
+
+  };
 
   //Método de inicializaçãao
   ngOnInit(){
